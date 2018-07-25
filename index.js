@@ -25,7 +25,7 @@ wss.on('connection', function (cws, req) {
 
 	// server to client
 	tws.on('message', function(message){
-		cws.send(message.data);
+		if (cws.readyState == WebSocket.OPEN) cws.send(message);
 	});
 	tws.on('close', function(){
 		cws.close();
