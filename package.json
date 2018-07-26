@@ -1,4 +1,7 @@
 {
+  "scripts":{
+    "start": "node index.js"
+  },
   "dependencies": {
     "ws": "^6.0.0"
   }
