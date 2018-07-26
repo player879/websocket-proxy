@@ -1,5 +1,7 @@
 var WebSocket = require('ws');
-var wss = new WebSocket.Server({ port: process.env.PORT || 8080 });
+var wss = new WebSocket.Server({
+	port: process.env.OPENSHIFT_NODEJS_PORT || process.env.PORT || 8080
+});
 wss.on('connection', function (cws, req) {
 	console.log(`New connection from ${req.connection.remoteAddress}`);
 	var tws = new WebSocket("ws://www.multiplayerpiano.com:443", {
