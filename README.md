@@ -12,6 +12,8 @@ To install on your own server:
 git clone https://github.com/ledlamp/mpp-proxy-server.git
 cd mpp-proxy-server
 npm install
+# the server defaults to port 8080, but you can set the PORT environment variable
+export PORT=443
 nohup npm start &
 # or use your preferred process manager
 # and don't forget to make it start at reboot (such as in `crontab -e` or with `pm2 startup`)
