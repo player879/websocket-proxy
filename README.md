@@ -15,6 +15,8 @@ MPP.client.start();
 Another advantage over forward proxies is that you can host it on cloud applications, such as Heroku and OpenShift, so you can **host your own 24/7 MPP proxy for free!** Just create an app using this repository (you may need to fork it for Heroku). Then use the app's URL like so: `ws://<hostname of app>:80`.
 
 > Also works on repl.it: https://repl.it/@ledlamp89/mpp-proxy-server
+> 
+> On repl.it, the app starts whenever its hostname (mpp-proxy-server--ledlamp89.repl.co) is accessed. This means you can fork that REPL as many times as you want to create individual proxy servers that are readily available. I have yet to find an uptime limit so you can theoretically use them as long as you want!
 
 To install on your own server:
 ```sh
