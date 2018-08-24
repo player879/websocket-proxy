@@ -2,7 +2,7 @@ var WebSocket = require('ws');
 var wss = new WebSocket.Server({
 	port: process.env.OPENSHIFT_NODEJS_PORT || process.env.PORT || 8080
 });
-wss.on('connection', function (cws, req) {
+wss.on('connection', function (cws, req){
 	console.log(`New connection from ${req.connection.remoteAddress}`);
 	var tws = new WebSocket("ws://www.multiplayerpiano.com:443", {
 		origin:"http://www.multiplayerpiano.com"
@@ -11,8 +11,8 @@ wss.on('connection', function (cws, req) {
 	// client to server
 	var messageBuffer = [];
 	tws.on('open', function(){
-		for (let message of messageBuffer)
-			tws.send(message);
+		for (let message of messageBuffer) tws.send(message);
+		messageBuffer = undefined;
 	});
 	cws.on('message', function(message){
 		if (tws.readyState == WebSocket.OPEN) tws.send(message);
@@ -21,7 +21,7 @@ wss.on('connection', function (cws, req) {
 	cws.on('close', function(){
 		tws.close();
 		console.log(`Closing connection from ${req.connection.remoteAddress}`)
-		delete messageBuffer;
+		messageBuffer = undefined;
 	});
 	cws.on('error', console.error);
 
