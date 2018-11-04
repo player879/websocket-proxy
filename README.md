@@ -17,7 +17,7 @@ Another advantage over forward proxies is that you can host it on cloud applicat
 
 > Also works on Repl.it: https://repl.it/@ledlamp89/mpp-proxy-server
 > 
-> Repl.it hosts web apps indefinitely—sometimes they will go to sleep but they will wake up when you access them and stay running as long as you use them. And because each app runs on a random host (with different IP), you can fork the app multiple times to have multiple readily-available MPP proxies. Note that there are a limited number of hosts (58 when I tested) so the more forks you use, the more likely you will have proxies merged with the same IP address.
+> Repl.it hosts web apps indefinitely—sometimes they will go to sleep but they will wake up when you access them and stay running as long as you use them. And because each app runs on a random host (with different IP), you can fork the app multiple times to have multiple readily-available MPP proxies. Note that there are a limited number of hosts so the more forks you use, the more likely you will have proxies merged with the same IP address.
 
 To install on your own server:
 ```sh
