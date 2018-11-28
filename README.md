@@ -28,7 +28,7 @@ This is a simple Node.js WebSocket server that, upon connection, creates its own
 
 ### On other cloud IDE platforms
 - On [Repl.it](https://repl.it), you can fork this “repl”: https://repl.it/@ledlamp89/websocket-proxy
-- [Glitch](https://glitch.com) has a feature to clone a Git repository, but strangely it's only available from the `New Project` button under `Project options` of editing an existing project.
+- For [Glitch](https://glitch.com), click this: https://glitch.com/edit/#!/remix/clone-from-repo?REPO_URL=https://github.com/ledlamp/websocket-proxy
 - On other platforms, if you can't clone the repository, just manually upload the files or copy and paste the index.js file. You might need to modify something.
 
 ### On a Linux system
