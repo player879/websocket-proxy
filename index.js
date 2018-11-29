@@ -8,7 +8,7 @@ wss.on('connection', function (cws, req){
 	var number = conncount++;
 	console.log(`New connection #${number} from ${req.connection.remoteAddress} with ${req.url}`);
 	cws.on('close', function(){
-		console.log(`Closing connection from ${req.connection.remoteAddress}`);
+		console.log(`Closing connection #${number} from ${req.connection.remoteAddress}`);
 	});
 
 	var querystring = req.url.substr(1);
