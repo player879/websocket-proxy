@@ -35,7 +35,7 @@ wss.on('connection', function (cws, req){
 	});
 	cws.on('message', function(message){
 		if (tws.readyState == WebSocket.OPEN) tws.send(message);
-		else messageBuffer.push(message);
+		else if (messageBuffer) messageBuffer.push(message);
 	});
 	cws.on('close', function(){
 		tws.close();
