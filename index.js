@@ -10,17 +10,10 @@ wss.on('connection', function (cws, req){
 	cws.on('close', function(){
 		console.log(`Closing connection #${number} from ${req.connection.remoteAddress}`);
 	});
-
-	var querystring = req.url.substr(1);
-	if (!querystring) return cws.close();
-	var params = parseQueryString(querystring);
-	var target = params.target;
-	if (!target) return cws.close();
-	var headers = {};
-	for (let key in params) if (key != "target") headers[key] = params[key];
-
 	try {
-		var tws = new WebSocket(target, {headers});
+		fetch('https://www.multiplayerpiano.com').then(() => {
+			var tws = new WebSocket(target, {headers});
+		}, () => {throw(new Error('Failed fetch'))});
 	} catch(e) {
 		console.error(e);
 		cws.close();
