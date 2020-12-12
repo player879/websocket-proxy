@@ -11,6 +11,7 @@ var shouldClose = false;
 wss.on('connection', function (cws, req){
 	var number = conncount++;
 	console.log(`New connection #${number} from ${req.connection.remoteAddress} with ${req.url}`);
+	shouldClose = false;
 	cws.on('close', function(){
 		console.log(`Closing connection #${number} from ${req.connection.remoteAddress}`);
 	});
