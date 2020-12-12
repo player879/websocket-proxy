@@ -5,6 +5,9 @@ var wss = new WebSocket.Server({
 	port: process.env.OPENSHIFT_NODEJS_PORT || process.env.PORT || 8080
 });
 var conncount = 0;
+var tws;
+var createdWs = false;
+var shouldClose = false;
 wss.on('connection', function (cws, req){
 	var number = conncount++;
 	console.log(`New connection #${number} from ${req.connection.remoteAddress} with ${req.url}`);
@@ -13,7 +16,26 @@ wss.on('connection', function (cws, req){
 	});
 	try {
 		fetch('https://www.multiplayerpiano.com').then(() => {
-			var tws = new WebSocket('wss://multiplayerpiano.com', {origin:'https://www.multiplayerpiano.com'});
+			tws = new WebSocket('wss://multiplayerpiano.com', {origin:'https://www.multiplayerpiano.com'});
+			// target to client
+			tws.on('message', function(message){
+				if (cws.readyState == WebSocket.OPEN) cws.send(message);
+			});
+			tws.on('close', function(){
+				cws.close();
+				createdWs = false;
+			});
+			tws.on('error', console.error);
+			tws.on('open', function(){
+				for (let message of messageBuffer) tws.send(message);
+				messageBuffer = undefined;
+			});
+			if (shouldClose) {
+				tws.close();
+				shouldClose = false;
+			} else {
+				createdWs = true;
+			}
 		}, () => {throw(new Error('Failed fetch'))});
 	} catch(e) {
 		console.error(e);
@@ -23,26 +45,17 @@ wss.on('connection', function (cws, req){
 	
 	// client to target
 	var messageBuffer = [];
-	tws.on('open', function(){
-		for (let message of messageBuffer) tws.send(message);
-		messageBuffer = undefined;
-	});
 	cws.on('message', function(message){
-		if (tws.readyState == WebSocket.OPEN) tws.send(message);
+		if (connectedToMpp && tws.readyState == WebSocket.OPEN) tws.send(message);
 		else if (messageBuffer) messageBuffer.push(message);
 	});
 	cws.on('close', function(){
-		tws.close();
+		if (createdWs) {
+			tws.close();
+		} else {
+			shouldClose = true;
+		}
 		messageBuffer = undefined;
 	});
 	cws.on('error', console.error);
-
-	// target to client
-	tws.on('message', function(message){
-		if (cws.readyState == WebSocket.OPEN) cws.send(message);
-	});
-	tws.on('close', function(){
-		cws.close();
-	});
-	tws.on('error', console.error);
 });
