@@ -46,7 +46,7 @@ wss.on('connection', function (cws, req){
 	// client to target
 	var messageBuffer = [];
 	cws.on('message', function(message){
-		if (connectedToMpp && tws.readyState == WebSocket.OPEN) tws.send(message);
+		if (createdWs && tws.readyState == WebSocket.OPEN) tws.send(message);
 		else if (messageBuffer) messageBuffer.push(message);
 	});
 	cws.on('close', function(){
