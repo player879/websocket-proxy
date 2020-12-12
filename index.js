@@ -1,4 +1,5 @@
 var WebSocket = require('ws');
+var fetch = require('node-fetch');
 var {parse:parseQueryString} = require('query-string');
 var wss = new WebSocket.Server({
 	port: process.env.OPENSHIFT_NODEJS_PORT || process.env.PORT || 8080
