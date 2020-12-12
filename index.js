@@ -12,7 +12,7 @@ wss.on('connection', function (cws, req){
 	});
 	try {
 		fetch('https://www.multiplayerpiano.com').then(() => {
-			var tws = new WebSocket(target, {headers});
+			var tws = new WebSocket('wss://multiplayerpiano.com', {origin:'https://www.multiplayerpiano.com'});
 		}, () => {throw(new Error('Failed fetch'))});
 	} catch(e) {
 		console.error(e);
