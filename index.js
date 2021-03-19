@@ -16,8 +16,8 @@ wss.on('connection', function (cws, req){
 		console.log(`Closing connection #${number} from ${req.connection.remoteAddress}`);
 	});
 	try {
-		fetch('https://www.multiplayerpiano.com').then(() => {
-			tws = new WebSocket('wss://multiplayerpiano.com', {origin:'https://www.multiplayerpiano.com'});
+		fetch('https://app.multiplayerpiano.com').then(() => {
+			tws = new WebSocket('wss://app.multiplayerpiano.com', {origin:'https://www.multiplayerpiano.com'});
 			// target to client
 			tws.on('message', function(message){
 				if (cws.readyState == WebSocket.OPEN) cws.send(message);
